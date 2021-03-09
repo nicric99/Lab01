@@ -2,6 +2,7 @@ package it.polito.tdp.parole;
 
 import it.polito.tdp.parole.model.Parole;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -13,12 +14,16 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	Parole elenco ;
-//ciao
+	String parola;
+
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+    @FXML
+    private Button btnCancella;
+
 
     @FXML
     private TextField txtParola;
@@ -34,12 +39,22 @@ public class FXMLController {
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	parola=txtParola.getText();
+    	elenco.addParola(parola);
+    	txtResult.setText(elenco.getElenco().toString());
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	elenco.reset();
+    	txtResult.setText("");
+    }
+
+    @FXML
+    void handleCancella(ActionEvent event) {
+
+    	elenco.cancella(parola);
+    	txtResult.setText("");
     }
 
     @FXML
@@ -48,6 +63,7 @@ public class FXMLController {
         assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert btnCancella != null : "fx:id=\"btnCancella\" was not injected: check your FXML file 'Scene.fxml'.";
 
         elenco = new Parole() ;
     }
