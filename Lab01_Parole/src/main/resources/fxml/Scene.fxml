@@ -28,7 +28,7 @@
                   <Button fx:id="btnCancella" mnemonicParsing="false" onAction="#handleCancella" text="Cancella" />
                </children>
             </HBox>
-            <TextArea fx:id="txtPrestazioni" prefHeight="50.0" prefWidth="50.0" promptText="Prestazioni" />
+            <TextArea fx:id="txtPrestazioni" editable="false" prefHeight="50.0" prefWidth="50.0" promptText="Prestazioni" />
             <TextArea fx:id="txtResult" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
          </children>
       </VBox>

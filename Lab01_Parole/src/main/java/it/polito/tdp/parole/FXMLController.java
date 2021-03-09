@@ -42,27 +42,52 @@ public class FXMLController {
 
     @FXML
     void doInsert(ActionEvent event) {
+    	// mettiamo questo long per segnalare il tempo di esecuzione in questo punto
+    	long startTime = System.nanoTime();  
+    	// questo comando prendiamo la parola dal campo di testo
     	parola=txtParola.getText();
+    	if(parola.isEmpty()) {
+    		txtResult.setText("Inserire una parola ");
+    		return;
+    		}
+    	// utilizziamo la funzione in Parole
     	elenco.addParola(parola);
-    	txtResult.setText(elenco.getElenco().toString());
+    	// calcoliamo e stampiamo la differenza che è il tempo di esecuzione di queste istruzion
     	
-    	txtPrestazioni.setText("Insert "+Long.toString(System.nanoTime())+" nanosecondi");
+    	txtPrestazioni.setText("Insert "+Long.toString((System.nanoTime()-startTime))+" nanosecondi");
+    	// stampiamo l'elenco utilizzando la propriata delle List toString (in teoria può essere seguito meglio)
+    	// per implementare una stampa diversa vedere Libretto del progetto librettovoti
+    	
+    	//txtResult.setText(elenco.getElenco().toString());
+    	// per farlo più elegante basta guardare qua sotto i due metodi implementati
+    	// il primo le ordina e il secondo stampa con degli accapo
+    	elenco.getElenco();
+    	txtResult.setText(elenco.toString());
+
+    	
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	long startTime = System.nanoTime(); 
+    	// usiamo reset, metodo della classe parole
     	elenco.reset();
+    	// puliamo l'area di testo
+    	txtPrestazioni.setText("Reset "+Long.toString((System.nanoTime()-startTime))+" nanosecondi");
     	txtResult.setText("");
-    	txtPrestazioni.setText("Reset "+Long.toString(System.nanoTime())+" nanosecondi");
     }
 
     @FXML
     void handleCancella(ActionEvent event) {
+    	long startTime = System.nanoTime();    
     	String pdacancellare;
+    	// con questa istruzione stiamo prendendo la parola evidenziata nell'area di testo
     	pdacancellare= txtResult.getSelectedText();
     	elenco.cancella(pdacancellare);
-    	txtResult.setText("");
-    	txtPrestazioni.setText("Cancella "+Long.toString(System.nanoTime())+" nanosecondi");
+    	//txtResult.setText("");
+    	txtPrestazioni.setText("Cancella "+Long.toString(System.nanoTime()-startTime)+" nanosecondi");
+    	elenco.getElenco();
+    	txtResult.setText(elenco.toString());
     }
 
     @FXML
